@@ -157,8 +157,7 @@
 											bottom: 0.02,
 											left: 0.02
 										},
-										series: series,
-										color: 'steelblue'
+										series: series
 									});
 
 									graph.render();

@@ -13,11 +13,11 @@
 	*/
 
 	var defaultKey		= 'NuUTGHs92HFefYNwK6uvTDFLf2FHNdavw661ehxO44Nbvftx', // Unique master Xively API key to be used as a default
-		defaultFeeds	= [61916,61916], // Comma separated array of Xively Feed ID numbers
+		defaultFeeds	= [61916,12425,94322], // Comma separated array of Xively Feed ID numbers
 		applicationName	= 'IMASS Clean House Monitoring System', // Replaces Xively logo in the header
 		dataDuration	= '90days', // Default duration of data to be displayed // ref: https://xively.com/dev/docs/api/data/read/historical_data/
-		dataInterval	= 0, // Default interval for data to be displayed (in seconds)
-		dataColor		= 'steelblue', // CSS HEX value of color to represent data (omit leading #)
+		dataInterval	= 10800, // Default interval for data to be displayed (in seconds)
+		dataColor		= '0A1922', // CSS HEX value of color to represent data (omit leading #)
 		hideForm		= 0; // To hide input form use value of 1, otherwise set to 0
 
 // Function Declarations

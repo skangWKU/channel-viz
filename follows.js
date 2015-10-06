@@ -190,6 +190,12 @@
 										}
 									});
 									
+									$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .slider').prop('id', 'slider-' + feedId + '-' + datastream.id);
+									var slider = new Rickshaw.Graph.RangeSlider({
+	            	   					graph: graph,
+	        	       					element: $('#slider-' + feedId + '-' + datastream.id)
+	               					});
+									
 									// Build the second graph
 									var graph = new Rickshaw.Graph( {
 										element: document.querySelector('#graph-' + feedId + '-' + datastream.id),

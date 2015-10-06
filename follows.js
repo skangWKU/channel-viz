@@ -132,7 +132,7 @@
 									// Add Each Datapoint to Array
 									datastreamData.datapoints.forEach(function(datapoint) {
 										// points.push({x: new Date(datapoint.at).getTime()/1000.0, y: parseFloat(datapoint.value)});
-										points.push({x: new Date(datapoint.at).getTime()/1000.0, y: 200-parseFloat(datapoint.value)});
+										points.push({x: new Date(datapoint.at).getTime()/1000.0, y: 300-parseFloat(datapoint.value)});
 									});
 
 									// Add Datapoints Array to Graph Series Array
@@ -140,7 +140,7 @@
 										name: datastream.id,
 										data: points,
 										// color: '#' + dataColor
-										color: 'steelblue'
+										color: 'brightblue'
 									});
 
 									// Initialize Graph DOM Element

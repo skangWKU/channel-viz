@@ -135,7 +135,8 @@
 
 									// Add Datapoints Array to Graph Series Array
 									series.push({
-										name: datastream.id,
+										// name: datastream.id,
+										name: CH_sensor1,
 										data: points,
 										// color: '#' + dataColor
 										color: 'steelblue'
@@ -161,6 +162,8 @@
 										series: series
 									});
 
+									graph.render();
+									
 									graph.render();
 
 									var ticksTreatment = 'glow';

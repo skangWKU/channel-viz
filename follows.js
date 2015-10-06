@@ -135,8 +135,7 @@
 
 									// Add Datapoints Array to Graph Series Array
 									series.push({
-										// name: datastream.id,
-										name: CH_sensor1,
+										name: datastream.id,
 										data: points,
 										// color: '#' + dataColor
 										color: 'steelblue'

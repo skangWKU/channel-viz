@@ -137,7 +137,8 @@
 									series.push({
 										name: datastream.id,
 										data: points,
-										color: '#' + dataColor
+										// color: '#' + dataColor
+										color: 'steelblue' + dataColor
 									});
 
 									// Initialize Graph DOM Element

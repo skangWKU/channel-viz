@@ -230,6 +230,22 @@
 	            	   					graph: graph,
 	        	       					element: $('#slider-' + feedId + '-' + datastream.id)
 	               					});
+	               							// Graph2: Enable Datapoint Hover Values
+									var hoverDetail = new Rickshaw.Graph.HoverDetail({
+										graph: graph2,
+										formatter: function(series, x, y) {
+											var swatch = '<span class="detail_swatch" style="background-color: ' + series.color + ' padding: 4px;"></span>';
+											var content = swatch + "&nbsp;&nbsp;" + parseFloat(y) + '&nbsp;&nbsp;<br>';
+											return content;
+										}
+									});
+									
+									$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .slider').prop('id', 'slider-' + feedId + '-' + datastream.id);
+									var slider = new Rickshaw.Graph.RangeSlider({
+	            	   					graph: graph2,
+	        	       					element: $('#slider-' + feedId + '-' + datastream.id)
+	               					});
+	               					
 								} else {
 									$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .graphWrapper').addClass('hidden');
 								}

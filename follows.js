@@ -135,8 +135,7 @@
 
 									// Add Datapoints Array to Graph Series Array
 									series.push({
-										// name: datastream.id,
-										name: CH_sensor1,
+										name: datastream.id,
 										data: points,
 										// color: '#' + dataColor
 										color: 'steelblue'
@@ -163,6 +162,23 @@
 									});
 
 									graph.render();
+									
+									// Build the second graph
+									var graph = new Rickshaw.Graph( {
+										element: document.querySelector('#graph-' + feedId + '-' + datastream.id),
+										width: 600,
+										height: 200,
+										renderer: 'area',
+										min: parseFloat(datastream.min_value) - .25*(parseFloat(datastream.max_value) - parseFloat(datastream.min_value)),
+										max: parseFloat(datastream.max_value) + .25*(parseFloat(datastream.max_value) - parseFloat(datastream.min_value)),
+										padding: {
+											top: 0.02,
+											right: 0.02,
+											bottom: 0.02,
+											left: 0.02
+										},
+										series: series
+									});
 									
 									graph.render();
 

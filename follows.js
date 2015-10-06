@@ -179,7 +179,7 @@
 									});
 
 									graph.render();
-									graph2.render();
+								
 									
 									var ticksTreatment = 'glow';
 
@@ -213,6 +213,9 @@
 	            	   					graph: graph,
 	        	       					element: $('#slider-' + feedId + '-' + datastream.id)
 	               					});
+	               					
+	               					graph2.render();
+	               					
 								} else {
 									$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .graphWrapper').addClass('hidden');
 								}

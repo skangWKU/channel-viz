@@ -17,7 +17,8 @@
 		applicationName	= 'IMASS Monitoring System', // Replaces Xively logo in the header
 		dataDuration	= '90days', // Default duration of data to be displayed // ref: https://xively.com/dev/docs/api/data/read/historical_data/
 		dataInterval	= 10800, // Default interval for data to be displayed (in seconds)
-		dataColor		= '0A1922', // CSS HEX value of color to represent data (omit leading #)
+		// dataColor		= '0A1922', // CSS HEX value of color to represent data (omit leading #)
+		dataColor		= 'lightblue', // CSS HEX value of color to represent data (omit leading #)
 		hideForm		= 1; // To hide input form use value of 1, otherwise set to 0
 
 // Function Declarations
@@ -179,9 +180,10 @@
 									});
 
 									graph.render();
-								
 									
 									var ticksTreatment = 'glow';
+									
+									graph2.render();
 
 									// Define and Render X Axis (Time Values)
 									var xAxis = new Rickshaw.Graph.Axis.Time( {
@@ -197,6 +199,21 @@
 										ticksTreatment: ticksTreatment
 									});
 									yAxis.render();
+									
+									// Graph2: Define and Render X Axis (Time Values)
+									var xAxis2 = new Rickshaw.Graph.Axis.Time( {
+										graph: graph2,
+										ticksTreatment: ticksTreatment
+									});
+									xAxis2.render();
+
+									// Graph2: Define and Render Y Axis (Datastream Values)
+									var yAxis2 = new Rickshaw.Graph.Axis.Y( {
+										graph: graph2,
+										tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
+										ticksTreatment: ticksTreatment
+									});
+									yAxis2.render();
 
 									// Enable Datapoint Hover Values
 									var hoverDetail = new Rickshaw.Graph.HoverDetail({
@@ -213,9 +230,6 @@
 	            	   					graph: graph,
 	        	       					element: $('#slider-' + feedId + '-' + datastream.id)
 	               					});
-	               					
-	               					graph2.render();
-	               					
 								} else {
 									$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .graphWrapper').addClass('hidden');
 								}

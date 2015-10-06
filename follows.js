@@ -137,10 +137,11 @@
 
 									// Add Datapoints Array to Graph Series Array
 									series.push({
-										name: datastream.id,
+										//name: datastream.id,
+										name: 'sensors',
 										data: points,
 										// color: '#' + dataColor
-										color: 'lightblue'
+										color: 'stillblue'
 									});
 
 									// Initialize Graph DOM Element

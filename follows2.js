@@ -2,8 +2,8 @@
 
 
 
-
-									// Add Each Datapoint to Array
+if(feedData.datastreams) {
+								// Add Each Datapoint to Array
 									datastreamData.datapoints.forEach(function(datapoint) {
 										// points.push({x: new Date(datapoint.at).getTime()/1000.0, y: parseFloat(datapoint.value)});
 										points.push({x: new Date(datapoint.at).getTime()/1000.0, y: parseFloat(datapoint.value)});

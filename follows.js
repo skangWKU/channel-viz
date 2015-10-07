@@ -2,7 +2,6 @@
 
 	/*
 	EXAMPLE CONFIGURATION
-
 		var defaultKey	= 'fje329iun52ngtuijo2f4jeun432A', // Unique master Xively API key to be used as a default
 		defaultFeeds	= [61916,12425,94322], // Comma separated array of Xively Feed ID numbers
 		applicationName	= 'My Company\'s Application', // Replaces Xively logo in the header
@@ -112,8 +111,9 @@
 
 								// Fill Datastream UI with Data
 								$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .datastream-name').html(datastream.id);
-								$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .datastream-value').html(datastream.current_value);
-								
+								// $('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .datastream-value').html(datastream.current_value);
+								$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .datastream-value').html(300-datastream.current_value);
+
 								// Include Datastream Unit (If Available)
 								if(datastream.unit) {
 									if(datastream.unit.symbol) {

@@ -139,7 +139,7 @@
 										name: datastream.id,
 										data: points,
 										// color: '#' + dataColor
-										color: '#DF5D31'
+										color: 'steelblue'
 									});
 
 									// Initialize Graph DOM Element

@@ -247,7 +247,7 @@
 					}
 
 					// Link
-					$('#feed-' + data.id + ' .link .value').html('<a href="https://xively.com/feeds/' + data.id + '/">View on Xively &raquo;</a>');
+					$('#feed-' + data.id + ' .link .value').html('<a href="https://xively.com/feeds/' + data.id + '/">View on Server &raquo;</a>');
 
 					// Creator
 					var creator = /[^/]*$/.exec(data.creator)[0];

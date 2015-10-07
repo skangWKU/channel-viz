@@ -1,5 +1,81 @@
 (function ( $ ){
 
+
+
+
+									// Add Each Datapoint to Array
+									datastreamData.datapoints.forEach(function(datapoint) {
+										// points.push({x: new Date(datapoint.at).getTime()/1000.0, y: parseFloat(datapoint.value)});
+										points.push({x: new Date(datapoint.at).getTime()/1000.0, y: parseFloat(datapoint.value)});
+									});
+
+									// Add Datapoints Array to Graph Series Array
+									series.push({
+										name: datastream.id,
+										data: points,
+										// color: '#' + dataColor
+										color: '#101C24'
+									});
+
+									// Initialize Graph DOM Element
+									$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .graph').attr('id', 'graph-' + feedId + '-' + datastream.id);
+									
+									// Build Graph
+									var graph2 = new Rickshaw.Graph( {
+										element: document.querySelector('#graph-' + feedId + '-' + datastream.id),
+										width: 600,
+										height: 200,
+										renderer: 'line',
+										min: parseFloat(datastream.min_value) - .25*(parseFloat(datastream.max_value) - parseFloat(datastream.min_value)),
+										max: parseFloat(datastream.max_value) + .25*(parseFloat(datastream.max_value) - parseFloat(datastream.min_value)),
+										padding: {
+											top: 0.02,
+											right: 0.02,
+											bottom: 0.02,
+											left: 0.02
+										},
+										series: series
+									});
+									
+									graph2.render();
+									
+									var ticksTreatment = 'glow';
+
+									// Define and Render X Axis (Time Values)
+									var xAxis = new Rickshaw.Graph.Axis.Time( {
+										graph: graph2,
+										ticksTreatment: ticksTreatment
+									});
+									xAxis.render();
+
+									// Define and Render Y Axis (Datastream Values)
+									var yAxis = new Rickshaw.Graph.Axis.Y( {
+										graph: graph2,
+										tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
+										ticksTreatment: ticksTreatment
+									});
+									yAxis.render();
+
+									// Enable Datapoint Hover Values
+									var hoverDetail = new Rickshaw.Graph.HoverDetail({
+										graph: graph2,
+										formatter: function(series, x, y) {
+											var swatch = '<span class="detail_swatch" style="background-color: ' + series.color + ' padding: 4px;"></span>';
+											var content = swatch + "&nbsp;&nbsp;" + parseFloat(y) + '&nbsp;&nbsp;<br>';
+											return content;
+										}
+									});
+									
+									$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .slider').prop('id', 'slider-' + feedId + '-' + datastream.id);
+									var slider = new Rickshaw.Graph.RangeSlider({
+	            	   					graph: graph2,
+	        	       					element: $('#slider-' + feedId + '-' + datastream.id)
+	               					});
+								} else {
+									$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .graphWrapper').addClass('hidden');
+								}
+					
+
 	/*
 	EXAMPLE CONFIGURATION
 
@@ -72,7 +148,7 @@
 	function setApiKey(key) {
 		xively.setKey(key);
 	}
-*/
+
 	function updateFeeds(feedId, datastreamIds, duration, interval) {
 		xively.feed.get(feedId, function(feedData) {
 			if(feedData.datastreams) {
@@ -215,6 +291,8 @@
 			$('#loadingData').foundation('reveal', 'close');
 		});
 	}
+*/
+
 /*
 	function setFeeds(feeds) {
 		$('#welcome').addClass('hidden');

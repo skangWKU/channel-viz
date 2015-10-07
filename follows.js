@@ -18,7 +18,7 @@
 		dataDuration	= '90days', // Default duration of data to be displayed // ref: https://xively.com/dev/docs/api/data/read/historical_data/
 		dataInterval	= 10800, // Default interval for data to be displayed (in seconds)
 		// dataColor		= '0A1922', // CSS HEX value of color to represent data (omit leading #)
-		dataColor		= '830610', // CSS HEX value of color to represent data (omit leading #)
+		// dataColor		= '830610', // CSS HEX value of color to represent data (omit leading #)
 		hideForm		= 1; // To hide input form use value of 1, otherwise set to 0
 
 // Function Declarations
@@ -112,7 +112,8 @@
 
 								// Fill Datastream UI with Data
 								$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .datastream-name').html(datastream.id);
-								$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .datastream-value').html(datastream.current_value);
+								// $('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .datastream-value').html(datastream.current_value);
+								$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .datastream-value').html(300-datastream.current_value);
 
 								// Include Datastream Unit (If Available)
 								if(datastream.unit) {
@@ -140,7 +141,7 @@
 										name: datastream.id,
 										data: points,
 										// color: '#' + dataColor
-										color: 'steelblue'
+										color: '#DF5D31'
 									});
 
 									// Initialize Graph DOM Element

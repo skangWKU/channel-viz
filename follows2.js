@@ -12,6 +12,7 @@
 		hideForm		= 0;
 	*/
 
+	/*
 	var defaultKey		= 'NuUTGHs92HFefYNwK6uvTDFLf2FHNdavw661ehxO44Nbvftx', // Unique master Xively API key to be used as a default
 		defaultFeeds	= [1919500875], // Comma separated array of Xively Feed ID numbers
 		applicationName	= 'IMASS Smart Solutions', // Replaces Xively logo in the header
@@ -20,7 +21,9 @@
 		// dataColor		= '0A1922', // CSS HEX value of color to represent data (omit leading #)
 		dataColor		= '830610', // CSS HEX value of color to represent data (omit leading #)
 		hideForm		= 1; // To hide input form use value of 1, otherwise set to 0
-
+	*/
+		
+/*
 // Function Declarations
 
 	// URL Parameters
@@ -69,7 +72,7 @@
 	function setApiKey(key) {
 		xively.setKey(key);
 	}
-
+*/
 	function updateFeeds(feedId, datastreamIds, duration, interval) {
 		xively.feed.get(feedId, function(feedData) {
 			if(feedData.datastreams) {
@@ -111,8 +114,8 @@
 								}
 
 								// Fill Datastream UI with Data
-								// $('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .datastream-name').html(datastream.id);
-								// $('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .datastream-value').html(datastream.current_value);
+								$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .datastream-name').html(datastream.id);
+								$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .datastream-value').html(datastream.current_value);
 
 								// Include Datastream Unit (If Available)
 								if(datastream.unit) {
@@ -147,7 +150,7 @@
 									$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .graph').attr('id', 'graph-' + feedId + '-' + datastream.id);
 									
 									// Build Graph
-									var graph = new Rickshaw.Graph( {
+									var graph2 = new Rickshaw.Graph( {
 										element: document.querySelector('#graph-' + feedId + '-' + datastream.id),
 										width: 600,
 										height: 200,
@@ -163,20 +166,20 @@
 										series: series
 									});
 									
-									graph.render();
+									graph2.render();
 									
 									var ticksTreatment = 'glow';
 
 									// Define and Render X Axis (Time Values)
 									var xAxis = new Rickshaw.Graph.Axis.Time( {
-										graph: graph,
+										graph: graph2,
 										ticksTreatment: ticksTreatment
 									});
 									xAxis.render();
 
 									// Define and Render Y Axis (Datastream Values)
 									var yAxis = new Rickshaw.Graph.Axis.Y( {
-										graph: graph,
+										graph: graph2,
 										tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
 										ticksTreatment: ticksTreatment
 									});
@@ -184,7 +187,7 @@
 
 									// Enable Datapoint Hover Values
 									var hoverDetail = new Rickshaw.Graph.HoverDetail({
-										graph: graph,
+										graph: graph2,
 										formatter: function(series, x, y) {
 											var swatch = '<span class="detail_swatch" style="background-color: ' + series.color + ' padding: 4px;"></span>';
 											var content = swatch + "&nbsp;&nbsp;" + parseFloat(y) + '&nbsp;&nbsp;<br>';
@@ -194,7 +197,7 @@
 									
 									$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .slider').prop('id', 'slider-' + feedId + '-' + datastream.id);
 									var slider = new Rickshaw.Graph.RangeSlider({
-	            	   					graph: graph,
+	            	   					graph: graph2,
 	        	       					element: $('#slider-' + feedId + '-' + datastream.id)
 	               					});
 								} else {
@@ -212,7 +215,7 @@
 			$('#loadingData').foundation('reveal', 'close');
 		});
 	}
-
+/*
 	function setFeeds(feeds) {
 		$('#welcome').addClass('hidden');
 		feeds.forEach(function(id) {
@@ -369,8 +372,11 @@
 			});
 		});
 	}
+*/
+
 // END Function Declarations
 
+/*
 // BEGIN Initialization
 	if(hideForm == 1) {
 		$('#form').hide();
@@ -453,6 +459,6 @@
 		return false;
 	});
 // END Initialization
-
+*/
 })( jQuery );
 

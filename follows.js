@@ -113,7 +113,8 @@
 								// Fill Datastream UI with Data
 								$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .datastream-name').html(datastream.id);
 								// $('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .datastream-value').html(datastream.current_value);
-								$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .datastream-value').html(300-datastream.current_value);
+								var tmp = 300-datastream.current_value;
+								$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .datastream-value').html(tmp);
 
 								// Include Datastream Unit (If Available)
 								if(datastream.unit) {

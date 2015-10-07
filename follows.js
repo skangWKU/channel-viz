@@ -139,7 +139,7 @@
 										name: datastream.id,
 										data: points,
 										// color: '#' + dataColor
-										color: 'brightblue'
+										color: 'DF5D31'
 									});
 
 									// Initialize Graph DOM Element
@@ -150,7 +150,7 @@
 										element: document.querySelector('#graph-' + feedId + '-' + datastream.id),
 										width: 600,
 										height: 200,
-										renderer: 'line',
+										renderer: 'area',
 										min: parseFloat(datastream.min_value) - .25*(parseFloat(datastream.max_value) - parseFloat(datastream.min_value)),
 										max: parseFloat(datastream.max_value) + .25*(parseFloat(datastream.max_value) - parseFloat(datastream.min_value)),
 										padding: {

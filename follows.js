@@ -11,7 +11,7 @@
 		hideForm		= 0;
 	*/
 
-	var defaultKey		= 'v4QIzMMaggeeDURmoXjmyrfe9RaK1hu66eVEP9kbQ1BNXtmc', // Unique master Xively API key to be used as a default
+	var defaultKey		= '4zgvnneWE4b3Uun2WbW1UPfmnoZDxQntTxCnSTw4p2SQPoVP', // Unique master Xively API key to be used as a default
 		defaultFeeds	= [1641054082], // Comma separated array of Xively Feed ID numbers
 		applicationName	= 'IMASS Smart Solutions', // Replaces Xively logo in the header
 		dataDuration	= '6hours', // Default duration of data to be displayed // ref: https://xively.com/dev/docs/api/data/read/historical_data/

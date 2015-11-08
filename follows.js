@@ -132,8 +132,8 @@
 
 									// Add Each Datapoint to Array
 									datastreamData.datapoints.forEach(function(datapoint) {
-										// points.push({x: new Date(datapoint.at).getTime()/1000.0, y: parseFloat(datapoint.value)});
-										points.push({x: new Date(datapoint.at).getTime()/1000.0, y: 300-parseFloat(datapoint.value)});
+										points.push({x: new Date(datapoint.at).getTime()/1000.0, y: parseFloat(datapoint.value)});
+										// points.push({x: new Date(datapoint.at).getTime()/1000.0, y: 300-parseFloat(datapoint.value)});
 									});
 
 									// Add Datapoints Array to Graph Series Array
@@ -150,7 +150,8 @@
 									// Build Graph
 									var graph = new Rickshaw.Graph( {
 										element: document.querySelector('#graph-' + feedId + '-' + datastream.id),
-										width: 600,
+										// width: 600,
+										width: 800,
 										height: 200,
 										renderer: 'area',
 										min: parseFloat(datastream.min_value) - .25*(parseFloat(datastream.max_value) - parseFloat(datastream.min_value)),

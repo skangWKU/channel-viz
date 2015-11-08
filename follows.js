@@ -154,8 +154,9 @@
 										// width: 800,
 										height: 200,
 										renderer: 'area',
-										min: parseFloat(datastream.min_value) - .25*(parseFloat(datastream.max_value) - parseFloat(datastream.min_value)),
+										// min: parseFloat(datastream.min_value) - .25*(parseFloat(datastream.max_value) - parseFloat(datastream.min_value)),
 										// max: parseFloat(datastream.max_value) + .25*(parseFloat(datastream.max_value) - parseFloat(datastream.min_value)),
+										min: -50,
 										max: 300,
 										padding: {
 											top: 0.02,

@@ -384,5 +384,82 @@
 	<script src="follows2.js"></script>
 	-->
 
+
+
+
+
+
+<div id="map" style="width:100%;height:350px;"></div>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = { 
+        center: new daum.maps.LatLng(33.5081444,126.5402834), // 지도의 중심좌표
+        level: 7// 지도의 확대 레벨
+    };  
+
+var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+
+
+// 선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
+var linePath = [
+new daum.maps.LatLng(33.5081444,126.5402834),
+new daum.maps.LatLng(33.5059858,126.5381121),
+new daum.maps.LatLng(33.5020635,126.5310679),
+new daum.maps.LatLng(33.5003049,126.5221766),
+new daum.maps.LatLng(33.4997999,126.5133326),
+new daum.maps.LatLng(33.5001319,126.5033739),
+new daum.maps.LatLng(33.4966396,126.4942760),
+new daum.maps.LatLng(33.4909866,126.4868789),
+new daum.maps.LatLng(33.4868859,126.4796358),
+new daum.maps.LatLng(33.4820739,126.4729117),
+new daum.maps.LatLng(33.4800181,126.4717859),
+new daum.maps.LatLng(33.4767416,126.4716039),
+new daum.maps.LatLng(33.4753467,126.4722122),
+new daum.maps.LatLng(33.4751740,126.4724082),
+new daum.maps.LatLng(33.4751740,126.4724082),
+new daum.maps.LatLng(33.4757239,126.4722910),
+new daum.maps.LatLng(33.4757239,126.4722910),
+new daum.maps.LatLng(33.4755805,126.4718772),
+new daum.maps.LatLng(33.4778207,126.4715720),
+new daum.maps.LatLng(33.4778207,126.4715720),
+new daum.maps.LatLng(33.4779615,126.4711519),
+new daum.maps.LatLng(33.4779615,126.4711519)
+];
+
+var linePath2 = [
+new daum.maps.LatLng(33.5081444,126.5402834),
+new daum.maps.LatLng(33.5059858,126.5381121),
+new daum.maps.LatLng(33.5020635,126.5310679),
+new daum.maps.LatLng(33.5003049,126.5221766)
+];
+
+  
+  
+// 지도에 표시할 선을 생성합니다
+var polyline = new daum.maps.Polyline({
+    path: linePath, // 선을 구성하는 좌표배열 입니다
+    strokeWeight: 5, // 선의 두께 입니다
+    strokeColor: '#FFAE00', // 선의 색깔입니다
+    strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'solid' // 선의 스타일입니다
+});
+  
+var polyline2 = new daum.maps.Polyline({
+    path: linePath2, // 선을 구성하는 좌표배열 입니다
+    strokeWeight: 10, // 선의 두께 입니다
+    strokeColor: '#FFAE00', // 선의 색깔입니다
+    strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeStyle: 'solid' // 선의 스타일입니다
+});
+  
+// 지도에 선을 표시합니다 
+polyline.setMap(map);  
+polyline2.setMap(map);  
+
+
+
+</script>
+
 </body>
 </html>

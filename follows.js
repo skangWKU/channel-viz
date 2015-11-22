@@ -177,7 +177,7 @@
 									var xAxis = new Rickshaw.Graph.Axis.Time( {
 										graph: graph,
 										ticksTreatment: ticksTreatment,
-										timeFixture: new Rickshaw.Fixwtures.Time.Local()
+										timeFixture: new Rickshaw.Fixtures.Time.Local()
 									});
 									xAxis.render();
 

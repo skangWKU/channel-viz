@@ -172,13 +172,10 @@
 									graph.render();
 									
 									var ticksTreatment = 'glow';
-									var time = new Rickshaw.Fixtures.Time.Local();
-									var seconds = time.unit('seconds');
 
 									// Define and Render X Axis (Time Values)
 									var xAxis = new Rickshaw.Graph.Axis.Time( {
 										graph: graph,
-										timeUnit: seconds,
 										ticksTreatment: ticksTreatment
 									});
 									xAxis.render();

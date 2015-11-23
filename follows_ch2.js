@@ -242,45 +242,6 @@
 			}
 			xively.feed.history(id, {  duration: "6hours", interval: 30 }, function (data) {
 				if(data.id == id) {
-					
-
-					$('#feed-' + data.id + ' .duration-hour').click(function() {
-						$('#loadingData').foundation('reveal', 'open');
-						updateFeeds(data.id, thisFeedDatastreams, '6hours', 30);
-						return false;
-					});
-
-					$('#feed-' + data.id + ' .duration-day').click(function() {
-						$('#loadingData').foundation('reveal', 'open');
-						updateFeeds(data.id, thisFeedDatastreams, '1day', 60);
-						return false;
-					});
-
-					$('#feed-' + data.id + ' .duration-week').click(function() {
-						$('#loadingData').foundation('reveal', 'open');
-						updateFeeds(data.id, thisFeedDatastreams, '1week', 900);
-						return false;
-					});
-
-					$('#feed-' + data.id + ' .duration-month').click(function() {
-						$('#loadingData').foundation('reveal', 'open');
-						updateFeeds(data.id, thisFeedDatastreams, '1month', 1800);
-						return false;
-					});
-
-					$('#feed-' + data.id + ' .duration-90').click(function() {
-						$('#loadingData').foundation('reveal', 'open');
-						updateFeeds(data.id, thisFeedDatastreams, '90days', 10800);
-						return false;
-					});
-
-					// Handle Datastreams
-					if(dataDuration != '' && dataInterval != 0) {
-						updateFeeds(data.id, thisFeedDatastreams, dataDuration, dataInterval);
-					} else {
-						updateFeeds(data.id, thisFeedDatastreams, '6hours', 30);
-					}
-					
 					// Duplicate Example to Build Feed UI
 					$('#exampleFeed').clone().appendTo('#feeds').attr('id', 'feed-' + id).removeClass('hidden');
 
@@ -374,7 +335,43 @@
 							$('#feed-' + data.id + ' .disposition').addClass('hidden');
 							$('#feed-' + data.id + ' .map').addClass('hidden');
 					}
-					
+
+					$('#feed-' + data.id + ' .duration-hour').click(function() {
+						$('#loadingData').foundation('reveal', 'open');
+						updateFeeds(data.id, thisFeedDatastreams, '6hours', 30);
+						return false;
+					});
+
+					$('#feed-' + data.id + ' .duration-day').click(function() {
+						$('#loadingData').foundation('reveal', 'open');
+						updateFeeds(data.id, thisFeedDatastreams, '1day', 60);
+						return false;
+					});
+
+					$('#feed-' + data.id + ' .duration-week').click(function() {
+						$('#loadingData').foundation('reveal', 'open');
+						updateFeeds(data.id, thisFeedDatastreams, '1week', 900);
+						return false;
+					});
+
+					$('#feed-' + data.id + ' .duration-month').click(function() {
+						$('#loadingData').foundation('reveal', 'open');
+						updateFeeds(data.id, thisFeedDatastreams, '1month', 1800);
+						return false;
+					});
+
+					$('#feed-' + data.id + ' .duration-90').click(function() {
+						$('#loadingData').foundation('reveal', 'open');
+						updateFeeds(data.id, thisFeedDatastreams, '90days', 10800);
+						return false;
+					});
+
+					// Handle Datastreams
+					if(dataDuration != '' && dataInterval != 0) {
+						updateFeeds(data.id, thisFeedDatastreams, dataDuration, dataInterval);
+					} else {
+						updateFeeds(data.id, thisFeedDatastreams, '6hours', 30);
+					}
 				} else {
 					// Duplicate Example to Build Feed UI
 					$('#exampleFeedNotFound').clone().appendTo('#feeds').attr('id', 'feed-' + id).removeClass('hidden');

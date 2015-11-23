@@ -15,7 +15,8 @@
 	var defaultKey		= 'NuUTGHs92HFefYNwK6uvTDFLf2FHNdavw661ehxO44Nbvftx', // imass: Unique master Xively API key to be used as a default
 		// defaultFeeds	= [1641054082], // heojoon_1: Comma separated array of Xively Feed ID numbers
 		defaultFeeds	= [1919500875], // imass: Comma separated array of Xively Feed ID numbers
-		applicationName	= 'IMASS Smart Solutions', // Replaces Xively logo in the header
+		// applicationName	= 'IMASS Smart Solutions', // Replaces Xively logo in the header
+		applicationName	= 'CleanHouse Monitoring System', // Replaces Xively logo in the header
 		dataDuration	= '6hours', // Default duration of data to be displayed // ref: https://xively.com/dev/docs/api/data/read/historical_data/
 		// dataInterval	= 30, // Default interval for data to be displayed (in seconds)
 		dataInterval	= 0, // Default interval for data to be displayed (in seconds)
@@ -245,10 +246,11 @@
 					// Duplicate Example to Build Feed UI
 					$('#exampleFeed').clone().appendTo('#feeds').attr('id', 'feed-' + id).removeClass('hidden');
 
-					// ID
-					$('#feed-' + data.id + ' .title .value').html(data.title);
-
 					// Title
+					// $('#feed-' + data.id + ' .title .value').html(data.title);
+					$('#feed-' + data.id + ' .title .value').html("cleanhouse1");
+
+					// ID
 					$('#feed-' + data.id + ' .id .value').html(data.id);
 
 					// Description
@@ -372,6 +374,11 @@
 					} else {
 						updateFeeds(data.id, thisFeedDatastreams, '6hours', 30);
 					}
+					
+					
+					
+					
+					
 				} else {
 					// Duplicate Example to Build Feed UI
 					$('#exampleFeedNotFound').clone().appendTo('#feeds').attr('id', 'feed-' + id).removeClass('hidden');

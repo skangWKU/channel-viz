@@ -151,7 +151,8 @@
 									
 									// Build Graph
 									var graph = new Rickshaw.Graph( {
-										element: document.querySelector('#graph-' + feedId + '-' + datastream.id),
+										// element: document.querySelector('#graph-' + feedId + '-' + datastream.id),
+										element: document.querySelector('#graph-' + feedId + '-' + "cleanhouse1"),
 										width: 600,
 										// width: 800,
 										height: 200,

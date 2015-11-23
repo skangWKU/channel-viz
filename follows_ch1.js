@@ -93,7 +93,8 @@
 					 if(duration == '90days') diff = 7884000000;
 					then.setTime(now.getTime() - diff);
 					if(updated.getTime() > then.getTime()) {
-						if(datastreamIds && datastreamIds != '' && datastreamIds.indexOf(datastream.id) >= 0) {
+						//if(datastreamIds && datastreamIds != '' && datastreamIds.indexOf(datastream.id) >= 0) {
+						if(datastreamIds == 'cleanhouse1') {
 							xively.datastream.history(feedId, datastream.id, {duration: duration, interval: interval, limit: 1000}, function(datastreamData) {
 
 								var series = [];
@@ -151,8 +152,7 @@
 									
 									// Build Graph
 									var graph = new Rickshaw.Graph( {
-										// element: document.querySelector('#graph-' + feedId + '-' + datastream.id),
-										element: document.querySelector('#graph-' + feedId + '-' + "cleanhouse1"),
+										element: document.querySelector('#graph-' + feedId + '-' + datastream.id),
 										width: 600,
 										// width: 800,
 										height: 200,

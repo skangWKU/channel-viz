@@ -248,17 +248,17 @@
 
 					// Title
 					// $('#feed-' + data.id + ' .title .value').html(data.title);
-					$('#feed-' + data.id + ' .title .value').html("cleanhouse1");
+					$('#feed-' + data.id + ' .title .value').html("cleanhouse2");
 
 					// ID
 					$('#feed-' + data.id + ' .id .value').html(data.id);
 
 					// Description
-					// if(data.description) {
-					//	$('#feed-' + data.id + ' .description .value').html(data.description);
-					// } else {
-					//	$('#feed-' + data.id + ' .description').addClass('hidden');
-					// }
+					if(data.description) {
+						$('#feed-' + data.id + ' .description .value').html(data.description);
+					} else {
+						$('#feed-' + data.id + ' .description').addClass('hidden');
+					}
 
 					// Link
 					$('#feed-' + data.id + ' .link .value').html('<a href="https://xively.com/feeds/' + data.id + '/">View on Server &raquo;</a>');

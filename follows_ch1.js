@@ -73,7 +73,8 @@
 	}
 
 	function updateFeeds(feedId, datastreamIds, duration, interval) {
-		xively.feed.get(feedId, function(feedData) {
+		// xively.feed.get(feedId, function(feedData) {
+		xively.datastream.get(feedId, 'cleanhouse1', function(feedData) {	
 			if(feedData.datastreams) {
 				if(datastreamIds == '' || !datastreamIds) {
 					feedData.datastreams.forEach(function(datastream) {
@@ -93,8 +94,7 @@
 					 if(duration == '90days') diff = 7884000000;
 					then.setTime(now.getTime() - diff);
 					if(updated.getTime() > then.getTime()) {
-						//if(datastreamIds && datastreamIds != '' && datastreamIds.indexOf(datastream.id) >= 0) {
-						if(datastreamIds == 'cleanhouse1') {
+						if(datastreamIds && datastreamIds != '' && datastreamIds.indexOf(datastream.id) >= 0) {
 							xively.datastream.history(feedId, datastream.id, {duration: duration, interval: interval, limit: 1000}, function(datastreamData) {
 
 								var series = [];

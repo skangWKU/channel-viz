@@ -74,7 +74,7 @@
 
 	function updateFeeds(feedId, datastreamIds, duration, interval) {
 		// xively.feed.get(feedId, function(feedData) {
-		xively.datastream.get(feedId, 'cleanhouse1', function(feedData) {	
+		xively.datastream.get(feedId, "cleanhouse1", function(feedData) {	
 			if(feedData.datastreams) {
 				if(datastreamIds == '' || !datastreamIds) {
 					feedData.datastreams.forEach(function(datastream) {

@@ -73,8 +73,7 @@
 	}
 
 	function updateFeeds(feedId, datastreamIds, duration, interval) {
-		// xively.feed.get(feedId, function(feedData) {
-		xively.datastream.get(feedId, "cleanhouse1", function(feedData) {	
+		xively.feed.get(feedId, function(feedData) {
 			if(feedData.datastreams) {
 				if(datastreamIds == '' || !datastreamIds) {
 					feedData.datastreams.forEach(function(datastream) {
@@ -95,6 +94,7 @@
 					then.setTime(now.getTime() - diff);
 					if(updated.getTime() > then.getTime()) {
 						if(datastreamIds && datastreamIds != '' && datastreamIds.indexOf(datastream.id) >= 0) {
+							if(datastream.id == 'cleanhouse1') { //sk
 							xively.datastream.history(feedId, datastream.id, {duration: duration, interval: interval, limit: 1000}, function(datastreamData) {
 
 								var series = [];
@@ -211,6 +211,7 @@
 									$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .graphWrapper').addClass('hidden');
 								}
 							});
+							} // sk
 						} else {
 							console.log('Datastream not requested! (' + datastream.id + ')');
 						}

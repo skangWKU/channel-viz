@@ -1,7 +1,7 @@
 (function ( $ ){
+
 	/*
 	EXAMPLE CONFIGURATION
-
 		var defaultKey	= 'fje329iun52ngtuijo2f4jeun432A', // Unique master Xively API key to be used as a default
 		defaultFeeds	= [61916,12425,94322], // Comma separated array of Xively Feed ID numbers
 		applicationName	= 'My Company\'s Application', // Replaces Xively logo in the header
@@ -11,17 +11,17 @@
 		hideForm		= 0;
 	*/
 
-	/*
-	var defaultKey		= 'NuUTGHs92HFefYNwK6uvTDFLf2FHNdavw661ehxO44Nbvftx', // Unique master Xively API key to be used as a default
-		defaultFeeds	= [1919500875], // Comma separated array of Xively Feed ID numbers
+	// var defaultKey		= '4zgvnneWE4b3Uun2WbW1UPfmnoZDxQntTxCnSTw4p2SQPoVP', // heojoon_1: Unique master Xively API key to be used as a default
+	var defaultKey		= 'NuUTGHs92HFefYNwK6uvTDFLf2FHNdavw661ehxO44Nbvftx', // imass: Unique master Xively API key to be used as a default
+		// defaultFeeds	= [1641054082], // heojoon_1: Comma separated array of Xively Feed ID numbers
+		defaultFeeds	= [1919500875], // imass: Comma separated array of Xively Feed ID numbers
 		applicationName	= 'IMASS Smart Solutions', // Replaces Xively logo in the header
-		dataDuration	= '90days', // Default duration of data to be displayed // ref: https://xively.com/dev/docs/api/data/read/historical_data/
-		dataInterval	= 10800, // Default interval for data to be displayed (in seconds)
+		dataDuration	= '6hours', // Default duration of data to be displayed // ref: https://xively.com/dev/docs/api/data/read/historical_data/
+		// dataInterval	= 30, // Default interval for data to be displayed (in seconds)
+		dataInterval	= 0, // Default interval for data to be displayed (in seconds)
 		// dataColor		= '0A1922', // CSS HEX value of color to represent data (omit leading #)
 		dataColor		= '830610', // CSS HEX value of color to represent data (omit leading #)
 		hideForm		= 1; // To hide input form use value of 1, otherwise set to 0
-	*/
-		
 
 // Function Declarations
 
@@ -98,12 +98,12 @@
 
 								var series = [];
 								var points = [];
-/*
+
 								// Create Datastream UI
 								$('.datastream-' + datastream.id).empty();
 								$('.datastream-' + datastream.id).remove();
 								$('#feed-' + feedId + ' .datastream.hidden').clone().appendTo('#feed-' + feedId + ' .datastreams').addClass('datastream-' + datastream.id).removeClass('hidden');
-*/
+
 								// Check for Datastream Tags
 								var tagsHtml = '';
 								if(datastreamData.tags) {
@@ -133,8 +133,9 @@
 
 									// Add Each Datapoint to Array
 									datastreamData.datapoints.forEach(function(datapoint) {
-										// points.push({x: new Date(datapoint.at).getTime()/1000.0, y: parseFloat(datapoint.value)});
-										points.push({x: new Date(datapoint.at).getTime()/1000.0, y: parseFloat(datapoint.value)});
+										points.push({x: new Date(datapoint.at).getTime()/1000.0+32400, y: 180-parseFloat(datapoint.value)});
+										// points.push({x: new Date(datapoint.at).getTime()/1000.0, y: 180-parseFloat(datapoint.value)});
+										// points.push({x: new Date(datapoint.at).getTime()/1000.0, y: 300-parseFloat(datapoint.value)});
 									});
 
 									// Add Datapoints Array to Graph Series Array
@@ -142,20 +143,24 @@
 										name: datastream.id,
 										data: points,
 										// color: '#' + dataColor
-										color: '#101C24'
+										color: '#DF5D31'
 									});
 
 									// Initialize Graph DOM Element
 									$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .graph').attr('id', 'graph-' + feedId + '-' + datastream.id);
 									
 									// Build Graph
-									var graph2 = new Rickshaw.Graph( {
+									var graph = new Rickshaw.Graph( {
 										element: document.querySelector('#graph-' + feedId + '-' + datastream.id),
 										width: 600,
+										// width: 800,
 										height: 200,
-										renderer: 'line',
-										min: parseFloat(datastream.min_value) - .25*(parseFloat(datastream.max_value) - parseFloat(datastream.min_value)),
-										max: parseFloat(datastream.max_value) + .25*(parseFloat(datastream.max_value) - parseFloat(datastream.min_value)),
+										// renderer: 'area',
+										renderer: 'scatterplot',
+										// min: parseFloat(datastream.min_value) - .25*(parseFloat(datastream.max_value) - parseFloat(datastream.min_value)),
+										// max: parseFloat(datastream.max_value) + .25*(parseFloat(datastream.max_value) - parseFloat(datastream.min_value)),
+										min: 10,
+										max: 180,
 										padding: {
 											top: 0.02,
 											right: 0.02,
@@ -165,20 +170,22 @@
 										series: series
 									});
 									
-									graph2.render();
+									graph.render();
 									
 									var ticksTreatment = 'glow';
+								
+									
 
 									// Define and Render X Axis (Time Values)
 									var xAxis = new Rickshaw.Graph.Axis.Time( {
-										graph: graph2,
+										graph: graph,
 										ticksTreatment: ticksTreatment
 									});
 									xAxis.render();
 
 									// Define and Render Y Axis (Datastream Values)
 									var yAxis = new Rickshaw.Graph.Axis.Y( {
-										graph: graph2,
+										graph: graph,
 										tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
 										ticksTreatment: ticksTreatment
 									});
@@ -186,7 +193,7 @@
 
 									// Enable Datapoint Hover Values
 									var hoverDetail = new Rickshaw.Graph.HoverDetail({
-										graph: graph2,
+										graph: graph,
 										formatter: function(series, x, y) {
 											var swatch = '<span class="detail_swatch" style="background-color: ' + series.color + ' padding: 4px;"></span>';
 											var content = swatch + "&nbsp;&nbsp;" + parseFloat(y) + '&nbsp;&nbsp;<br>';
@@ -196,7 +203,7 @@
 									
 									$('#feed-' + feedId + ' .datastreams .datastream-' + datastream.id + ' .slider').prop('id', 'slider-' + feedId + '-' + datastream.id);
 									var slider = new Rickshaw.Graph.RangeSlider({
-	            	   					graph: graph2,
+	            	   					graph: graph,
 	        	       					element: $('#slider-' + feedId + '-' + datastream.id)
 	               					});
 								} else {
@@ -250,7 +257,7 @@
 					}
 
 					// Link
-					$('#feed-' + data.id + ' .link .value').html('<a href="https://xively.com/feeds/' + data.id + '/">View on Xively &raquo;</a>');
+					$('#feed-' + data.id + ' .link .value').html('<a href="https://xively.com/feeds/' + data.id + '/">View on Server &raquo;</a>');
 
 					// Creator
 					var creator = /[^/]*$/.exec(data.creator)[0];
@@ -265,7 +272,7 @@
 					} else {
 						$('#feed-' + data.id + ' .tags').addClass('hidden');
 					}
-/*
+
 					// Location
 					if(data.location) {
 						if(data.location.name || data.location.lat || data.location.ele || data.location.disposition) {
@@ -326,7 +333,7 @@
 							$('#feed-' + data.id + ' .disposition').addClass('hidden');
 							$('#feed-' + data.id + ' .map').addClass('hidden');
 					}
-*/
+
 					$('#feed-' + data.id + ' .duration-hour').click(function() {
 						$('#loadingData').foundation('reveal', 'open');
 						updateFeeds(data.id, thisFeedDatastreams, '6hours', 30);
@@ -371,10 +378,7 @@
 			});
 		});
 	}
-
-
 // END Function Declarations
-
 
 // BEGIN Initialization
 	if(hideForm == 1) {
@@ -460,4 +464,3 @@
 // END Initialization
 
 })( jQuery );
-

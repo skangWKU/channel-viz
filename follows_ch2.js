@@ -245,6 +245,97 @@
 					// Duplicate Example to Build Feed UI
 					$('#exampleFeed').clone().appendTo('#feeds').attr('id', 'feed-' + id).removeClass('hidden');
 
+					// ID
+					$('#feed-' + data.id + ' .title .value').html(data.title);
+
+					// Title
+					$('#feed-' + data.id + ' .id .value').html(data.id);
+
+					// Description
+					if(data.description) {
+						$('#feed-' + data.id + ' .description .value').html(data.description);
+					} else {
+						$('#feed-' + data.id + ' .description').addClass('hidden');
+					}
+
+					// Link
+					$('#feed-' + data.id + ' .link .value').html('<a href="https://xively.com/feeds/' + data.id + '/">View on Server &raquo;</a>');
+
+					// Creator
+					var creator = /[^/]*$/.exec(data.creator)[0];
+					$('#feed-' + data.id + ' .creator .value').html('<a href="' + data.creator + '">' + creator + '</a>');
+
+					// Date Updated
+					$('#feed-' + data.id + ' .updated .value').html(data.updated);
+
+					// Tags
+					if(data.tags) {
+						$('#feed-' + data.id + ' .tags .value').html('<span class="radius secondary label">' + data.tags.join('</span> <span class="radius secondary label">') + '</span>');
+					} else {
+						$('#feed-' + data.id + ' .tags').addClass('hidden');
+					}
+
+					// Location
+					if(data.location) {
+						if(data.location.name || data.location.lat || data.location.ele || data.location.disposition) {
+
+							// Location Name
+							if(data.location.name) {
+								$('#feed-' + data.id + ' .location-name .value').html(data.location.name);
+							} else {
+								$('#feed-' + data.id + ' .location-name').addClass('hidden');
+							}
+
+							// Location Coordinates
+							if(data.location.lat && data.location.lon) {
+								$('#feed-' + data.id + ' .latitude .value').html(data.location.lat);
+								$('#feed-' + data.id + ' .longitude .value').html(data.location.lon);
+							} else {
+								$('#feed-' + data.id + ' .latitude').addClass('hidden');
+								$('#feed-' + data.id + ' .longitude').addClass('hidden');
+							}
+
+							// Location Elevation
+							if(data.location.ele) {
+								$('#feed-' + data.id + ' .elevation .value').html(data.location.ele);
+							} else {
+								$('#feed-' + data.id + ' .elevation').addClass('hidden');
+							}
+
+							// Location Disposition
+							if(data.location.disposition) {
+								$('#feed-' + data.id + ' .disposition .value').html(data.location.disposition);
+							} else {
+								$('#feed-' + data.id + ' .disposition').addClass('hidden');
+							}
+
+							// Location Map
+							if(data.location.lat && data.location.lon) {
+								$('#feed-' + data.id + ' .map .value').html('<a href="http://maps.google.com/maps?z=14&t=m&q=loc:' + data.location.lat + '+' + data.location.lon + '">View on Google Maps &raquo;</a>');
+							} else {
+								$('#feed-' + data.id + ' .map').addClass('hidden');
+							}
+						} else {
+							// Location Information Unavailable
+							$('#feed-' + data.id + ' .no-location').removeClass('hidden');
+								$('#feed-' + data.id + ' .location-name').addClass('hidden');
+								$('#feed-' + data.id + ' .latitude').addClass('hidden');
+								$('#feed-' + data.id + ' .longitude').addClass('hidden');
+								$('#feed-' + data.id + ' .elevation').addClass('hidden');
+								$('#feed-' + data.id + ' .disposition').addClass('hidden');
+								$('#feed-' + data.id + ' .map').addClass('hidden');
+						}
+					} else {
+						// Location Information Unavailable
+						$('#feed-' + data.id + ' .no-location').removeClass('hidden');
+							$('#feed-' + data.id + ' .location-name').addClass('hidden');
+							$('#feed-' + data.id + ' .latitude').addClass('hidden');
+							$('#feed-' + data.id + ' .longitude').addClass('hidden');
+							$('#feed-' + data.id + ' .elevation').addClass('hidden');
+							$('#feed-' + data.id + ' .disposition').addClass('hidden');
+							$('#feed-' + data.id + ' .map').addClass('hidden');
+					}
+
 					$('#feed-' + data.id + ' .duration-hour').click(function() {
 						$('#loadingData').foundation('reveal', 'open');
 						updateFeeds(data.id, thisFeedDatastreams, '6hours', 30);

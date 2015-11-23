@@ -78,7 +78,21 @@
 			</div>
 		</div>
 	</div>
-	<script src="mapdaum1.js"></script>
+	
+	<!-- Daum Map -->
+	<div id="map" style="width:500px;height:400px;"></div>
+	<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=3c459503875d185b6e7a14fa51708e67"></script>
+	<script>
+		var container = document.getElementById('map');
+		var options = {
+			center: new daum.maps.LatLng(33.450701, 126.570667),
+			level: 3
+		};
+
+		var map = new daum.maps.Map(container, options);
+	</script>
+	
+	
 	<!-- Form -->
 	<div id="form" style="background: #F0F0F0; border-bottom: 1px solid #CCC; padding: 25px; padding-bottom: 15px;">
 		<div class="row">
@@ -109,7 +123,6 @@
 			</div>
 		</div>
 	</div>
-	<script src="mapdaum1.js"></script>
 	
 	<!-- Page Content -->
 	<div id="xivelyContent" style="position: relative;">

@@ -58,9 +58,26 @@
 	<script src="js/xivelyjs-1.0.0.min.js"></script>
 	<script src="js/d3.v2.js"></script>
 	<script src="js/rickshaw.min.js"></script>
-
+	<script src="http://d23cj0cdvyoxg0.cloudfront.net/xivelyjs-1.0.4.min.js"></script>  
+	
 </head>
 <body>
+
+	<!-- Xively datasteam get-->
+	<!-- Set the Xively API key (https://xively.com/users/YOUR_USERNAME/keys)  -->
+  	xively.setKey( "NuUTGHs92HFefYNwK6uvTDFLf2FHNdavw661ehxO44Nbvftx" );  
+  
+  	<!-- Replace with your own values  -->
+  	var feedID        = 1919500875,          // Feed ID  
+      	datastreamID  = "cleanhouse1";       // Datastream ID  
+	<!-- selector      = "#myelement";   // Your element on the page  -->
+  
+	xively.datastream.get(feedID,datastreamID
+                       ,function(datastream){
+	document.write(JSON.stringify(datastream["current_value"]+"cm", null,4));
+	});
+
+
 
 	<!-- Header -->
 	<!-- <div style="background: #101C24;"> -->

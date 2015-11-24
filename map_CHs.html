@@ -215,6 +215,13 @@ createCarparkMarkers(); // 주차장 마커를 생성하고 주차장 마커 배
 
 changeMarker('coffee'); // 지도에 커피숍 마커가 보이도록 설정합니다    
 
+        // 선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
+        var linePath = [
+		new daum.maps.LatLng(33.452344169439975, 126.56878163224233),
+    		new daum.maps.LatLng(33.452739313807456, 126.5709308145358),
+		    new daum.maps.LatLng(33.45178067090639, 126.5726886938753) 
+	];
+
         // 지도에 표시할 선을 생성합니다
 	var polyline = new daum.maps.Polyline({
     	path: linePath, // 선을 구성하는 좌표배열 입니다
@@ -368,6 +375,13 @@ function changeMarker(type){
         setCoffeeMarkers(null);
         setStoreMarkers(null);
         setCarparkMarkers(map);  
+        
+        // 선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
+        var linePath = [
+		new daum.maps.LatLng(33.452344169439975, 126.56878163224233),
+    		new daum.maps.LatLng(33.452739313807456, 126.5709308145358),
+		    new daum.maps.LatLng(33.45178067090639, 126.5726886938753) 
+	];
         
         // 지도에 표시할 선을 생성합니다
 	var polyline = new daum.maps.Polyline({

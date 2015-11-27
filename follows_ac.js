@@ -264,7 +264,7 @@
 					$('#feed-' + data.id + ' .creator .value').html('<a href="' + data.creator + '">' + creator + '</a>');
 
 					// Date Updated
-					$('#feed-' + data.id + ' .updated .value').html(data.updated + 32400);
+					$('#feed-' + data.id + ' .updated .value').html(data.updated);
 
 					// Tags
 					if(data.tags) {

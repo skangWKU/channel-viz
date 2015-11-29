@@ -124,14 +124,17 @@
 			// 	};
 			// var markerImage = new daum.maps.MarkerImage(markerImageSrc, imageSize, imageOptions);	
 			
-			var CHmarker = new daum.maps.Marker({position: CHPositions[1]});
-			
 			CHMarkers = [];
 			
-			for (var i=0; i<CHPositions.length; i++) {
+			createCHMarkers();
+			
+			function createCHMarkers() {
+				for (var i=0; i<CHPositions.length; i++) {
 				var marker = new daum.maps.Marker({position: CHPositions[i]});
 				CHMarkers.push(marker);
+				}
 			}
+			
 			
 			for (var i=0; i<CHMarkers.length; i++) {
 				CHMarkers[i].setMap(map);

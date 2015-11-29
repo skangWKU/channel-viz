@@ -129,7 +129,7 @@
 			CHInfos = [];
 			createCHInfos();
 			
-			setMarkers(map,CHMarkers);
+			setMarkers(map,CHMarkers,CHInfos);
 			
 			
 			function createCHMarkers() {
@@ -164,13 +164,13 @@
 				}
 			}
 			
-			function setMarkers(map,markers){
+			function setMarkers(map,markers,infos){
 				for (var i=0; i<markers.length; i++) {
 					markers[i].setMap(map);
 					
-					MouseOverEvent(map,CHMarkers[i],CHInfos[i]);
-					MouseOutEvent(map,CHMarkers[i],CHInfos[i]);
-					MouseClickEvent(map,CHMarkers[i],CHInfos[i]);
+					MouseOverEvent(map,CHMarkers[i],infos[i]);
+					MouseOutEvent(map,CHMarkers[i],infos[i]);
+					MouseClickEvent(map,CHMarkers[i],infos[i]);
 				}	
 			}
 			

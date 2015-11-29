@@ -87,7 +87,7 @@
 		var container = document.getElementById('map');
 		var options = {
 			center: new daum.maps.LatLng(33.4779,126.47978),
-			level: 10
+			level: 2
 		};
 
 		var map = new daum.maps.Map(container, options);
@@ -124,11 +124,12 @@
 			var markerImage = new daum.maps.MarkerImage(markerImageSrc, imageSize, imageOptions);	
 			
 			CHMarkers = [];
-			
 			createCHMarkers();
 			
-			setMarkers(map,CHMarkers);
+			CHInfos = [];
+			createCHInfos();
 			
+			setMarkers(map,CHMarkers);
 			
 			
 			function createCHMarkers() {
@@ -141,23 +142,35 @@
 								image: markerImage,
 								clickable: true
 							});
-							var iwContent = '<div style="padding:5px;">cleanhouse-' + j +'_WiFi </div>'; 
-							var infowindow = new daum.maps.InfoWindow({
-							    content : iwContent
-							});
 							
-							MouseOverEvent(map,marker);
-							MouseOutEvent(map,marker);
-							MouseClickEvent(map,marker);
 						} 
 					}
 				CHMarkers.push(marker);
 				}
 			}
 			
+			function createCHInfos() {
+				for (var i=0; i<CHPositions.length; i++) {
+					
+					for (var j=0; j<TempPos.length; j++) {
+						if (i == TempPos[j]) {
+							var iwContent = '<div style="padding:5px;">cleanhouse - WiFi: </div>'; 
+							var info = new daum.maps.InfoWindow({
+								content: iwContent
+							});
+						} 
+					}
+				CHInfos.push(info);
+				}
+			}
+			
 			function setMarkers(map,markers){
 				for (var i=0; i<markers.length; i++) {
 					markers[i].setMap(map);
+					
+					MouseOverEvent(map,CHMarkers[i],CHInfos[i]);
+					MouseOutEvent(map,CHMarkers[i],CHInfos[i]);
+					MouseClickEvent(map,CHMarkers[i],CHInfos[i]);
 				}	
 			}
 			
@@ -170,21 +183,21 @@
 		// MouseOutEvent(map,CHMarkers[0]);
 		// MouseClickEvent(map,CHMarkers[0]);
   		
-  		function MouseOverEvent(map,marker) {
+  		function MouseOverEvent(map,marker,infowindow) {
   		daum.maps.event.addListener(marker, 'mouseover', function() {
 		  // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
 		    infowindow.open(map, marker);
 		});
   		}
   
-		function MouseOutEvent(map,marker) {
+		function MouseOutEvent(map,marker,infowindow) {
 		daum.maps.event.addListener(marker, 'mouseout', function() {
 		    // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
 		    infowindow.close();
 		});
 		}
 
-		function MouseClickEvent(map,marker) {
+		function MouseClickEvent(map,marker,infowindow) {
 		daum.maps.event.addListener(marker, 'click', function() {
 		  window.open('http://skangwku.github.io/channel-viz/cleanhouse1.html',"cleanhouse-WiFi",target='blank');
 		});

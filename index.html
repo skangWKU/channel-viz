@@ -137,14 +137,14 @@
 					var marker = new daum.maps.Marker({position: CHPositions[i]});
 					CHMarkers.push(marker);
 				}
-				for (var j=0; j<TempPos.length; i++) {
-					var marker = new daum.maps.Marker({
-						position: CHPositions[TempPos[j]],
-						image: markerImage,
-						clickable: true
-						});
-					CHMarkers[TempPos[j]] = marker;	
-				}
+				// for (var j=0; j<TempPos.length; i++) {
+				// 	var marker = new daum.maps.Marker({
+				// 		position: CHPositions[TempPos[j]],
+				// 		image: markerImage,
+				// 		clickable: true
+				// 		});
+				// 	CHMarkers[TempPos[j]] = marker;	
+				// }
 			}
 			
 			function createCHInfos() {
@@ -155,13 +155,13 @@
 						});
 					CHInfos.push(info);	
 				}
-				for (var j=0; j<TempPos.length; j++) {
-					var iwContent = '<div style="padding:7px;">CH No.' + TempPos[j] + '-WiFi </div>'; 
-					var info = new daum.maps.InfoWindow({
-						content: iwContent
-					});
-					CHInfos[TempPos[j]] = info;
-				}
+				// for (var j=0; j<TempPos.length; j++) {
+				// 	var iwContent = '<div style="padding:7px;">CH No.' + TempPos[j] + '-WiFi </div>'; 
+				// 	var info = new daum.maps.InfoWindow({
+				// 		content: iwContent
+				// 	});
+				// 	CHInfos[TempPos[j]] = info;
+				// }
 			}
 			
 			function setMarkers(map,markers,infos){

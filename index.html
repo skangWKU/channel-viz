@@ -87,7 +87,7 @@
 		var container = document.getElementById('map');
 		var options = {
 			center: new daum.maps.LatLng(33.4779,126.47978),
-			level: 2
+			level: 10
 		};
 
 		var map = new daum.maps.Map(container, options);
@@ -173,7 +173,7 @@
 					var info = new daum.maps.InfoWindow({
 						content: iwContent
 					});
-					CHInfos[i] = info;
+					CHInfos[TempPos[j]] = info;
 				}
 			}
 			

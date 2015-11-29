@@ -137,14 +137,14 @@
 					var marker = new daum.maps.Marker({position: CHPositions[i]});
 					CHMarkers.push(marker);
 				}
-				// for (var j=0; j<TempPos.length; j++) {
-				// 	var marker = new daum.maps.Marker({
-				// 		position: CHPositions[TempPos[j]],
-				// 		image: markerImage,
-				// 		clickable: true
-				// 		});
-				// 	CHMarkers[TempPos[j]] = marker;	
-				// }
+				for (var j=0; j<TempPos.length; j++) {
+					// var marker = new daum.maps.Marker({
+					// 	position: CHPositions[TempPos[j]],
+					// 	image: markerImage,
+					// 	clickable: true
+					// 	});
+					// CHMarkers[TempPos[j]] = marker;	
+				}
 			}
 			
 			function createCHInfos() {

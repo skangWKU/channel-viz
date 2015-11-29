@@ -87,7 +87,7 @@
 		var container = document.getElementById('map');
 		var options = {
 			center: new daum.maps.LatLng(33.4779,126.47978),
-			level: 2
+			level: 10
 		};
 
 		var map = new daum.maps.Map(container, options);
@@ -154,7 +154,7 @@
 					
 					for (var j=0; j<TempPos.length; j++) {
 						if (i == TempPos[j]) {
-							var iwContent = '<div style="padding:5px;">cleanhouse - WiFi: </div>'; 
+							var iwContent = '<div style="padding:5px;">CleanHouse No.' + TempPos[j] + '- WiFi </div>'; 
 							var info = new daum.maps.InfoWindow({
 								content: iwContent
 							});

@@ -116,15 +116,17 @@
 				new daum.maps.LatLng(33.486573,126.482303)
 				];  
 				
-			var markerImageSrc = 'http://static.naver.com/maps2/icons/pin_spot2.png';
-			var imageSize = new daum.maps.Size(24, 24), 
-				imageOptions = {  
-	                		spriteOrigin: new daum.maps.Point(0, 0),    
-	                		spriteSize: new daum.maps.Size(24, 24)
-				};
-			var markerImage = new daum.maps.MarkerImage(markerImageSrc, imageSize, imageOptions);	
+			// var markerImageSrc = 'http://static.naver.com/maps2/icons/pin_spot2.png';
+			// var imageSize = new daum.maps.Size(24, 24), 
+			// 	imageOptions = {  
+	  //              		spriteOrigin: new daum.maps.Point(0, 0),    
+	  //              		spriteSize: new daum.maps.Size(24, 24)
+			// 	};
+			// var markerImage = new daum.maps.MarkerImage(markerImageSrc, imageSize, imageOptions);	
 			
-			createMarker(CHPositions[1],markerImage);
+			var CHmarker = new daum.maps.Maker({position: CHPositions[1]});
+			
+			CHmarker.setMap(map);
 			
 			// setCHMarkers(map);
 			   

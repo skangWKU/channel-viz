@@ -156,7 +156,7 @@
 					CHInfos.push(info);	
 				}
 				for (var j=0; j<TempPos.length; j++) {
-					var iwContent = '<div style="padding:7px;">CH No.' + TempPos[j] + '-WiFi </div>'; 
+					var iwContent = '<div style="padding:7px;">CH No.' + TempPos[j] + ' (WiFi) </div>'; 
 					var info = new daum.maps.InfoWindow({
 						content: iwContent
 					});
@@ -199,7 +199,7 @@
 
 		function MouseClickEvent(map,marker,infowindow) {
 		daum.maps.event.addListener(marker, 'click', function() {
-		  window.open('http://skangwku.github.io/channel-viz/cleanhouse1.html',"cleanhouse-WiFi",target='blank');
+		  window.open('http://skangwku.github.io/channel-viz/cleanhouse' + 1 + '.html',"cleanhouse-WiFi",target='blank');
 		});
 		}
 		

@@ -87,7 +87,7 @@
 		var container = document.getElementById('map');
 		var options = {
 			center: new daum.maps.LatLng(33.4779,126.47978),
-			level: 2
+			level: 10
 		};
 
 		var map = new daum.maps.Map(container, options);
@@ -158,8 +158,9 @@
 							var info = new daum.maps.InfoWindow({
 								content: iwContent
 							});
+						CHInfos.push(info);	
 						} 
-					CHInfos.push(info);
+					
 					}
 				
 				}
@@ -169,9 +170,9 @@
 				for (var i=0; i<markers.length; i++) {
 					markers[i].setMap(map);
 					
-					MouseOverEvent(map,CHMarkers[i],infos[i]);
-					MouseOutEvent(map,CHMarkers[i],infos[i]);
-					MouseClickEvent(map,CHMarkers[i],infos[i]);
+					MouseOverEvent(map,markers[i],infos[i]);
+					MouseOutEvent(map,markers[i],infos[i]);
+					MouseClickEvent(map,markers[i],infos[i]);
 				}	
 			}
 			

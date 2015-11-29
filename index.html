@@ -126,7 +126,16 @@
 			
 			var CHmarker = new daum.maps.Marker({position: CHPositions[1]});
 			
-			CHmarker.setMap(map);
+			CHMarkers = [];
+			
+			for (var i=0; i<CHPositions.length; i++) {
+				var marker = new daum.maps.Marker({position: CHPositions[i]});
+				CHMArkers.push(marker);
+			}
+			
+			for (var i=0; i<CHMarkers.length; i++) {
+				CHMarkers[i].setMap(map);
+			}
 			
 			// setCHMarkers(map);
 			   

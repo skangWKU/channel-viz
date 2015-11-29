@@ -107,8 +107,18 @@
 		var position =  new daum.maps.LatLng(33.47772,126.47985);
   		var position2 = new daum.maps.LatLng(33.47779,126.47985);
 		
+		
+		
 		// 마커를 생성합니다
-		var marker = new daum.maps.Marker({position: position, clickable: true});
+		var markerImageSrc = 'http://static.naver.com/maps2/icons/pin_spot2.png';
+		var imageSize = new daum.maps.Size(24, 24), 
+			imageOptions = {  
+                		spriteOrigin: new daum.maps.Point(0, 0),    
+                		spriteSize: new daum.maps.Size(24, 24)
+			};
+		var markerImage = new daum.maps.MarkerImage(markerImageSrc, imageSize, imageOptions);
+		
+		var marker = new daum.maps.Marker({position: position, clickable: true, image: markerImage});
 	 	var marker2 = new daum.maps.Marker({position: position2, clickable: true});
 		
 	

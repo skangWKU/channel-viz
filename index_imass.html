@@ -1,0 +1,626 @@
+<!--
+	Visualising Xively Feeds with D3
+	Prepared by Paul Cheek
+	(c) 2013 LogMeIn, Inc.
+-->
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<head>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<title>IMASS Demo</title>
+
+	<link type="text/css" rel="stylesheet" href="css/normalize.css" />
+	<link type="text/css" rel="stylesheet" href="css/foundation.min.css" />
+	<link type="text/css" rel="stylesheet" href="css/rickshaw.min.css">
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.min.css" type="text/css" media="all" />
+
+	<style type="text/css">
+		body, html {
+			max-width: 100%;
+			min-height: 100%;
+			overflow-x: hidden;
+			background: #666 url(img/loading.gif) center center no-repeat;
+		}
+
+		.hidden {
+			display: none;
+		}
+
+		#xivelyContent {
+			background: #fff;
+			box-shadow: inset 0px 0px 100px #f0f0f0;
+		}
+
+			.graphWrapper {
+				-moz-box-shadow:inset 0px 0px 50px 25px #ffffff;
+				-webkit-box-shadow:inset 0px 0px 50px 25px #ffffff;
+				box-shadow:inset 0px 0px 50px 25px #ffffff;
+				background-image: linear-gradient(bottom, rgb(255,255,255) 30%, rgb(245,245,245) 97%);
+				background-image: -o-linear-gradient(bottom, rgb(255,255,255) 30%, rgb(245,245,245) 97%);
+				background-image: -moz-linear-gradient(bottom, rgb(255,255,255) 30%, rgb(245,245,245) 97%);
+				background-image: -webkit-linear-gradient(bottom, rgb(255,255,255) 30%, rgb(245,245,245) 97%);
+				background-image: -ms-linear-gradient(bottom, rgb(255,255,255) 30%, rgb(245,245,245) 97%);
+				background-image: -webkit-gradient(
+					linear,
+					left bottom,
+					left top,
+					color-stop(0.3, rgb(255,255,255)),
+					color-stop(0.97, rgb(245,245,245))
+				);
+			}
+	</style>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	<script src="js/custom.modernizr.js"></script>
+	<script src="js/xivelyjs-1.0.0.min.js"></script>
+	<script src="js/d3.v2.js"></script>
+	<script src="js/rickshaw.min.js"></script>
+	<script src="js/Rickshaw.Fixtures.Time.Local.js"></script>
+
+</head>
+<body>
+
+	<!-- Header -->
+	<!-- <div style="background: #101C24;"> -->
+	<div style="background: #830610;">		
+		
+		<div class="row">
+			<div class="large-12 columns">
+				<h1 style="color: #FFF; text-shadow: 0px 1px 0px #000;">
+					Visualizing Xively Feeds
+				</h1>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Daum Map -->
+	<!--  <div id="map" style="width:500px;height:400px;"></div> -->
+	<div id="map" style="background: #F0F0F0; border-bottom: 1px solid #CCC; padding: 425px; padding-bottom: 15px;"></div>
+	<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=3c459503875d185b6e7a14fa51708e67"></script>
+	<script>
+		var container = document.getElementById('map');
+		var options = {
+			center: new daum.maps.LatLng(33.4779,126.47978),
+			level: 2
+		};
+
+		var map = new daum.maps.Map(container, options);
+		
+		// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+		var mapTypeControl = new daum.maps.MapTypeControl();
+
+		// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+		// daum.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+		map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
+		
+		// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+		var zoomControl = new daum.maps.ZoomControl();
+		map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+		
+			var TempPos = [0,3,5];
+			
+			var CHPositions = [
+				new daum.maps.LatLng(33.4867057540726,126.485649814082),
+				new daum.maps.LatLng(33.486953,126.484101),
+				new daum.maps.LatLng(33.486573,126.482303),
+				new daum.maps.LatLng(33.4841754257422,126.48172710462),
+				new daum.maps.LatLng(33.484622,126.483473),
+				new daum.maps.LatLng(33.4847676117479,126.484615762081),
+				new daum.maps.LatLng(33.485173871941,126.485393991731)
+				];  
+				
+			var markerImageSrc = 'http://static.naver.com/maps2/icons/pin_spot2.png';
+			var imageSize = new daum.maps.Size(28, 37), 
+				imageOptions = {  
+	                		spriteOrigin: new daum.maps.Point(0, 0),    
+	                		spriteSize: new daum.maps.Size(28, 37)
+				};
+			var markerImage = new daum.maps.MarkerImage(markerImageSrc, imageSize, imageOptions);	
+			
+			CHMarkers = [];
+			createCHMarkers();
+			
+			CHInfos = [];
+			createCHInfos();
+			
+			setMarkers(map,CHMarkers,CHInfos);
+			
+			
+			function createCHMarkers() {
+				for (var i=0; i<CHPositions.length; i++) {
+					var marker = new daum.maps.Marker({position: CHPositions[i]});
+					CHMarkers.push(marker);
+				}
+				for (var j=0; j<TempPos.length; i++) {
+					var marker = new daum.maps.Marker({
+						position: CHPositions[TempPos[j]],
+						image: markerImage,
+						clickable: true
+						});
+					CHMarkers[TempPos[j]] = marker;	
+				}
+			}
+			
+			function createCHInfos() {
+				for (var i=0; i<CHPositions.length; i++) {
+					var iwContent = '<div style="padding:7px;">CH No.' + i + '</div>'; 
+					var info = new daum.maps.InfoWindow({
+						content: iwContent
+						});
+					CHInfos.push(info);	
+				}
+				for (var j=0; j<TempPos.length; j++) {
+					var iwContent = '<div style="padding:7px;">CH No.' + TempPos[j] + '-WiFi </div>'; 
+					var info = new daum.maps.InfoWindow({
+						content: iwContent
+					});
+					CHInfos[TempPos[j]] = info;
+				}
+			}
+			
+			function setMarkers(map,markers,infos){
+				for (var i=0; i<markers.length; i++) {
+					markers[i].setMap(map);
+					
+					MouseOverEvent(map,markers[i],infos[i]);
+					MouseOutEvent(map,markers[i],infos[i]);
+					MouseClickEvent(map,markers[i],infos[i]);
+				}	
+			}
+			
+		// var iwContent = '<div style="padding:5px;">cleanhouse - WiFi: </div>'; 
+		// var infowindow = new daum.maps.InfoWindow({
+		//     content : iwContent
+		// });
+		
+		// MouseOverEvent(map,CHMarkers[0]);
+		// MouseOutEvent(map,CHMarkers[0]);
+		// MouseClickEvent(map,CHMarkers[0]);
+  		
+  		function MouseOverEvent(map,marker,infowindow) {
+  		daum.maps.event.addListener(marker, 'mouseover', function() {
+		  // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+		    infowindow.open(map, marker);
+		});
+  		}
+  
+		function MouseOutEvent(map,marker,infowindow) {
+		daum.maps.event.addListener(marker, 'mouseout', function() {
+		    // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+		    infowindow.close();
+		});
+		}
+
+		function MouseClickEvent(map,marker,infowindow) {
+		daum.maps.event.addListener(marker, 'click', function() {
+		  window.open('http://skangwku.github.io/channel-viz/cleanhouse1.html',"cleanhouse-WiFi",target='blank');
+		});
+		}
+		
+
+		// 	function createMarker(position, image) {
+		// 	    var marker = new daum.maps.Marker({
+		// 	        position: position,
+		// 	        map: map
+		// 	    });
+			    
+		// 	    return marker;  
+		// 	}   
+
+
+
+			
+
+		// // 마커를 표시할 위치입니다 
+		// var position =  new daum.maps.LatLng(33.47772,126.47985);
+  //		var position2 = new daum.maps.LatLng(33.47779,126.47985);
+		
+		
+		
+		// 마커를 생성합니다
+		// var markerImageSrc = 'https://photos-6.dropbox.com/t/2/AACsV7e2xzRWP4kKG0X1wzzngMwMdp_rlb_RbEm9odWQ3Q/12/24581712/png/32x32/1/_/1/2/recycle_bin_green.png/EMjXvxIYttcIIAcoBw/2vf2tWBWQ4XY5MhgQrbovpSt09a7a6QuFaFOEHm0EF8?size=1280x960&size_mode=3';
+		// var imageSize = new daum.maps.Size(24, 24), 
+		//	imageOptions = {  
+                //		spriteOrigin: new daum.maps.Point(0, 0),    
+                //		spriteSize: new daum.maps.Size(24, 24)
+		//	};
+		// var markerImage = new daum.maps.MarkerImage(markerImageSrc, imageSize, imageOptions);
+		
+		
+		
+		
+		
+		// var marker = new daum.maps.Marker({position: position, clickable: true});
+	 //	var marker2 = new daum.maps.Marker({position: position2, clickable: true});
+		
+	
+		// // 마커를 지도에 표시합니다.
+		// marker.setMap(map);
+		// marker2.setMap(map);
+		
+		
+		// // 마커에 커서가 오버됐을 때 마커 위에 표시할 인포윈도우를 생성합니다
+		// var iwContent = '<div style="padding:5px;">cleanhouse1: </div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+  //		var iwContent2 = '<div style="padding:5px;">cleanhouse2: </div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+ 	
+		
+		// // 인포윈도우를 생성합니다
+		// var infowindow = new daum.maps.InfoWindow({
+		//     content : iwContent
+		// });
+	
+		// var infowindow2 = new daum.maps.InfoWindow({
+		//     content : iwContent2
+		// });
+		
+  
+  //		 daum.maps.event.addListener(marker, 'mouseover', function() {
+		//   // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+		//     infowindow.open(map, marker);
+		// });
+  
+		//  // 마커에 마우스아웃 이벤트를 등록합니다
+		// daum.maps.event.addListener(marker, 'mouseout', function() {
+		//     // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+		//     infowindow.close();
+		// });
+
+	 //       daum.maps.event.addListener(marker, 'mouseover', function() {
+		//   // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+		//     infowindow.open(map, marker);
+		// });
+		  
+		//  // 마커에 마우스오버 이벤트를 등록합니다
+		// daum.maps.event.addListener(marker2, 'mouseover', function() {
+		//   // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+		//     infowindow2.open(map, marker2);
+		// });
+  
+
+		//   // 마커에 마우스아웃 이벤트를 등록합니다
+		// daum.maps.event.addListener(marker2, 'mouseout', function() {
+		//     // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+		//     infowindow2.close();
+		// });
+		
+		// // 마커에 클릭이벤트를 등록합니다
+		// daum.maps.event.addListener(marker, 'click', function() {
+		//       // 마커 위에 인포윈도우를 표시합니다
+		//   window.open('http://skangwku.github.io/channel-viz/cleanhouse1.html',"cleanhouse1",target='blank');
+		// });
+		
+		// // 마커에 클릭이벤트를 등록합니다
+		// daum.maps.event.addListener(marker2, 'click', function() {
+		//       // 마커 위에 인포윈도우를 표시합니다
+		//   window.open('http://skangwku.github.io/channel-viz/cleanhouse2.html',"cleanhouse1",target='blank');
+		// });
+		
+	</script>
+	
+	
+	<!-- Form -->
+	<div id="form" style="background: #F0F0F0; border-bottom: 1px solid #CCC; padding: 25px; padding-bottom: 15px;">
+		<div class="row">
+			<div class="large-5 columns">
+				<div class="row collapse">
+					<div class="small-3 columns">
+						<span class="prefix">API Key</span>
+					</div>
+					<div class="small-9 columns">
+						<input type="text" placeholder="Valid Master API Key" id="apiKeyInput">
+					</div>
+				</div>
+			</div>
+			<div class="large-5 columns">
+				<div class="row collapse">
+					<div class="small-3 columns">
+						<span class="prefix">Feed ID's</span>
+					</div>
+					<div class="small-9 columns">
+						<input type="text" placeholder="Comma separated" id="feedsInput">
+					</div>
+				</div>
+			</div>
+			<div class="large-2 columns">
+				<a id="setFeeds" href="#" data-reveal-id="secondModal" class="secondary button small expand">
+					Visualize &raquo;
+				</a>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Page Content -->
+	<div id="xivelyContent" style="position: relative;">
+		<div id="welcome">
+			<div class="row">
+				<div class="large-1 columns">&nbsp;</div>
+				<div class="large-10 columns text-center">
+					<br/><br/><br/><br/><br/><br/><br/>
+					<h1 class="subheader" style="text-align: center;">Welcome to Xively!</h1>
+					<p>This page is an example of just one of many ways you can visualise your data on Xively.<br/>It was created with open-source tools, and reads data from Xively with the Xively JavaScript library.</p>
+					<p>Read the tutorial <i>(comming soon)</i> on how to make and customise your own.</p>
+				</div>
+				<div class="large-1 columns">&nbsp;</div>
+			</div>
+			<div class="row">
+				<div class="large-12 columns">
+					<br/><br/><br/><br/><hr/><br/><br/><br/><br/>
+					<div class="row">
+						<div class="large-4 columns">
+							<div class="hero panel">
+								<p style="font-size: 14px;">To use this page, enter a Master API Key from your Xively account, and a list of the Feeds that you would like to display, into the forms above. You can view multiple Feeds by separating them with a comma, and select individual channels with an exclamation mark.</p>
+							</div>
+						</div>
+						<div class="large-8 columns">
+							<h4 class="subheader">Examples</h4>
+							<hr/>
+							<div class="row">
+								<div class="large-4 columns">
+									<strong style="text-transform: uppercase;">Multiple Feeds</strong>
+								</div>
+								<div class="large-8 columns">
+									<pre><em>61916,61916</em></pre>
+								</div>
+							</div>
+							<hr/>
+							<div class="row">
+								<div class="large-4 columns">
+									<strong style="text-transform: uppercase;">Individual Channels</strong><br/>
+									<small>separate with exclamation marks</small>
+								</div>
+								<div class="large-8 columns">
+									<pre><em>61916!random5!random3600</em></pre><br/>
+									<pre><em>61916!random5,61916!random3600</em></pre>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br/><br/><br/><br/><hr/><br/><br/><br/><br/>
+				</div>
+			</div>
+			<div class="row">
+				<div class="large-2 columns">&nbsp;</div>
+				<div class="large-8 columns">
+					<h5 class="subheader text-center">To begin visualizing data, enter your Xively Master API key above!</h5>
+					<br/><br/><br/><br/><br/><br/><br/>
+				</div>
+				<div class="large-2 columns">&nbsp;</div>
+			</div>
+		</div>
+		<div id="invalidApiKey" class="hidden">
+			<div class="row">
+				<div class="large-2 columns">&nbsp;</div>
+				<div class="large-8 columns">
+					<br/><br/><br/>
+					<h1 class="subheader" style="text-align: center;">Uh oh!</h1>
+					<h2 class="subheader" style="text-align: center;">Your API key is invalid!</h2>
+					<p>Please try again or generate a new key on Xively. It is important to keep in mind that this API key must be a global API key in order to work in this example. Using an application-specific API key will cause this example to malfunction.</p>
+
+					<a href="#" data-reveal-id="exampleModal" class="openStart radius secondary button expand">Ready When You Are...</a>
+					<br/><br/><br/>
+				</div>
+				<div class="large-2 columns">&nbsp;</div>
+			</div>
+		</div>
+		<div id="validApiKey" class="hidden">
+			<div class="row">
+				<div class="large-2 columns">&nbsp;</div>
+				<div class="large-8 columns">
+					<br/><br/><br/>
+					<br/><br/><br/>
+					<h1 class="subheader" style="text-align: center;">Connected to Xively!</h1>
+					<h5 class="subheader text-center">To begin visualizing data, enter your Xively feed information above...</h5>
+				</div>
+				<div class="large-2 columns">&nbsp;</div>
+			</div>
+			<div class="row">
+				<div class="large-12 columns">
+					<br/><br/><br/><br/><hr/><br/><br/><br/><br/>
+					<div class="row">
+						<div class="large-4 columns">
+							<div class="hero panel">
+								<p style="font-size: 14px;">To use this page, enter a Master API Key from your Xively account, and a list of the Feeds that you would like to display, into the forms above. You can view multiple Feeds by separating them with a comma, and select individual channels with an exclamation mark.</p>
+							</div>
+						</div>
+						<div class="large-8 columns">
+							<h4 class="subheader">Examples</h4>
+							<hr/>
+							<div class="row">
+								<div class="large-4 columns">
+									<strong style="text-transform: uppercase;">Multiple Feeds</strong>
+								</div>
+								<div class="large-8 columns">
+									<pre><em>61916,61916</em></pre>
+								</div>
+							</div>
+							<hr/>
+							<div class="row">
+								<div class="large-4 columns">
+									<strong style="text-transform: uppercase;">Individual Channels</strong><br/>
+									<small>separate with exclamation marks</small>
+								</div>
+								<div class="large-8 columns">
+									<pre><em>61916!random5!random3600</em></pre><br/>
+									<pre><em>61916!random5,61916!random3600</em></pre>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br/><br/><br/><br/>
+					<br/><br/><br/><br/>
+					<br/><br/><br/><br/>
+				</div>
+			</div>
+		</div>
+		<div id="feeds">
+			<div class="feed hidden" id="exampleFeedNotFound" style="line-height: 25px; padding-top: 25px;">
+				<div class="row title">
+					<div class="large-12 columns">
+						<h2 class="subheader value">Loading Feed Data...</h2>
+
+						<div class="alert alert-box no-info">
+							Sorry, this feed could not be found.
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="feed hidden" id="exampleFeed" style="line-height: 25px; padding-top: 25px;">
+				<div class="row title">
+					<div class="large-12 columns">
+						<h2 class="subheader value">Loading Feed Data...</h2>
+					</div>
+				</div>
+				<div class="row">
+					<!--
+					<div class="large-7 columns">
+						<h4 class="subheader">Meta</h4>
+						<div class="row id">
+							<div class="large-4 columns"><strong>ID</strong></div>
+							<div class="large-8 columns value"></div>
+						</div>
+						<div class="row description">
+							<div class="large-4 columns"><strong>Description</strong></div>
+							<div class="large-8 columns value"></div>
+						</div>
+						<div class="row link">
+							<div class="large-4 columns"><strong>Link</strong></div>
+							<div class="large-8 columns value"><a href="#">View on Server &raquo;</a></div>
+						</div>
+						<div class="row creator">
+							<div class="large-4 columns"><strong>Creator</strong></div>
+							<div class="large-8 columns value"></div>
+						</div>
+						<div class="row updated">
+							<div class="large-4 columns"><strong>Updated</strong></div>
+							<div class="large-8 columns value"></div>
+						</div>
+						<div class="row tags">
+							<div class="large-4 columns"><strong>Tags</strong></div>
+							<div class="large-8 columns value"></div>
+						</div>
+					</div>
+					
+					<div class="large-5 columns">
+						<h4 class="subheader">Location</h4>
+						<div class="alert alert-box hidden no-location">
+							Sorry, no location information is available.
+						</div>
+						<div class="row location-name">
+							<div class="large-4 columns"><strong>Name</strong></div>
+							<div class="large-8 columns value"></div>
+						</div>
+						<div class="row latitude">
+							<div class="large-4 columns"><strong>Latitude</strong></div>
+							<div class="large-8 columns value"></div>
+						</div>
+						<div class="row longitude">
+							<div class="large-4 columns"><strong>Longitude</strong></div>
+							<div class="large-8 columns value"></div>
+						</div>
+						<div class="row elevation">
+							<div class="large-4 columns"><strong>Elevation</strong></div>
+							<div class="large-8 columns value"></div>
+						</div>
+						<div class="row disposition">
+							<div class="large-4 columns"><strong>Disposition</strong></div>
+							<div class="large-8 columns value"></div>
+						</div>
+						<div class="row map">
+							<div class="large-4 columns"><strong>Map</strong></div>
+							<div class="large-8 columns value"><a href="#">View on Google Maps &raquo;</a></div>
+						</div>
+					</div>
+					-->
+				</div>
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="button-group" style="float: right;">
+							<a href="#" class="small button secondary duration-hour">6 Hrs</a>
+							<a href="#" class="small button secondary duration-day">Day</a>
+							<a href="#" class="small button secondary duration-week">Week</a>
+							<a href="#" class="small button secondary duration-month">Month</a>
+							<a href="#" class="small button secondary duration-90">90 Days</a>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="large-12 columns">
+						<div class="datastreams" style="padding-bottom: 15px;">
+							<div class="datastream hidden">
+								<hr/>
+								<div class="row">
+									<div class="large-9 columns datastream-name subheader" style="font-size: 24px;">
+										Datastream Name
+									</div>
+									<div class="large-3 columns datastream-value subheader" style="font-size: 24px; text-align: right;">
+										420
+									</div>
+								</div>
+								<div class="row">
+									<div class="large-12 columns">
+										<div class="graphWrapper" style="margin-top: 15px; padding: 10px; text-align: center;">
+											<div class="graph" style="width: 600px; margin: auto;"></div>
+										</div>
+										<div class="slider" style="width: 600px; height: 15px; margin: auto;"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<hr/>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+	<!-- Footer -->
+	<!-- <div style="background: #0D1B23;"> -->
+	<div style="background: #830610;">
+		<div style="padding: 15px;">
+			<div class="row">
+				<div class="large-8 columns" style="color: rgb(81, 98, 111); padding-top: 10px; padding-bottom: 10px;">
+					<small>
+						This page was created with open-source tools, and uses data from <a style="font-weight: bold; color: rgb(81, 98, 111);" href="https://xively.com">Xively</a>.
+					</small>
+				</div>
+				<!--				
+				<div class="large-8 columns" style="color: rgb(81, 98, 111); padding-top: 10px; padding-bottom: 10px;">
+					<small>
+						This page was created with open-source tools, and uses data from <a style="font-weight: bold; color: rgb(81, 98, 111);" href="https://xively.com">Xively</a>. Read the <a style="font-weight: bold; color: rgb(81, 98, 111);" href="#">Tutorial (coming soon)</a> on how to make your own.
+					</small>
+				</div>
+				<div class="large-4 columns" style="color: rgb(81, 98, 111); padding-top: 10px; padding-bottom: 10px;">
+					<small>
+						<a style="color: rgb(81, 98, 111);" href="https://github.com/xively/channel-viz/blob/master/LICENSE.md">This library is Open Source, under the BSD 3-Clause license.</a>
+					</small>
+				</div>
+				-->
+			</div>
+		</div>
+	</div>
+
+	<!-- Modals -->
+	<div id="loadingData" class="reveal-modal small text-center">
+		<br/><br/><h2 class="subheader">Loading...</h2><br/><br/>
+	</div>
+	
+	<script>
+		document.write('<script src=' +
+		('__proto__' in {} ? 'js/zepto' : 'js/jquery') +
+		'.js><\/script>')
+	</script>
+	
+	<script src="js/foundation.min.js"></script>
+	<script src="follows.js"></script>
+	
+
+
+</body>
+</html>

@@ -155,13 +155,13 @@
 						});
 					CHInfos.push(info);	
 				}
-				// for (var j=0; j<TempPos.length; j++) {
-				// 	var iwContent = '<div style="padding:7px;">CH No.' + TempPos[j] + '-WiFi </div>'; 
-				// 	var info = new daum.maps.InfoWindow({
-				// 		content: iwContent
-				// 	});
-				// 	CHInfos[TempPos[j]] = info;
-				// }
+				for (var j=0; j<TempPos.length; j++) {
+					var iwContent = '<div style="padding:7px;">CH No.' + TempPos[j] + '-WiFi </div>'; 
+					var info = new daum.maps.InfoWindow({
+						content: iwContent
+					});
+					CHInfos[TempPos[j]] = info;
+				}
 			}
 			
 			function setMarkers(map,markers,infos){

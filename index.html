@@ -241,7 +241,11 @@
 					
 					MouseOverEvent(map,markers[i],infos[i]);
 					MouseOutEvent(map,markers[i],infos[i]);
-					MouseClickEvent(map,markers[i],infos[i]);
+					if (i=13) {
+					MouseClickEvent(map,markers[i],infos[i],2);
+					} else if (i=48) {
+						MouseClickEvent(map,markers[i],infos[i],1);
+					}
 				}	
 			}
 			
@@ -268,9 +272,9 @@
 		});
 		}
 
-		function MouseClickEvent(map,marker,infowindow) {
+		function MouseClickEvent(map,marker,infowindow,tmp) {
 		daum.maps.event.addListener(marker, 'click', function() {
-		  window.open('http://skangwku.github.io/channel-viz/cleanhouse' + 1 + '.html',"cleanhouse-WiFi",target='blank');
+		  window.open('http://skangwku.github.io/channel-viz/cleanhouse' + tmp + '.html',"cleanhouse-WiFi",target='blank');
 		});
 		}
 		

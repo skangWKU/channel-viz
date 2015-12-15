@@ -81,7 +81,7 @@
 	
 	<!-- Daum Map -->
 	<!--  <div id="map" style="width:500px;height:400px;"></div> -->
-	<div id="map" style="background: #F0F0F0; border-bottom: 1px solid #CCC; padding: 425px; padding-bottom: 15px;"></div>
+	<div id="map" style="background: #F0F0F0; border-bottom: 1px solid #CCC; padding: 475px; padding-bottom: 15px;"></div>
 	<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=3c459503875d185b6e7a14fa51708e67"></script>
 	<script>
 		var container = document.getElementById('map');
@@ -241,9 +241,9 @@
 					
 					MouseOverEvent(map,markers[i],infos[i]);
 					MouseOutEvent(map,markers[i],infos[i]);
-					if (i=13) {
+					if (i===13) {
 					MouseClickEvent(map,markers[i],infos[i],2);
-					} else if (i=48) {
+					} else if (i===48) {
 						MouseClickEvent(map,markers[i],infos[i],1);
 					}
 				}	
